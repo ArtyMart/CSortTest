@@ -3,6 +3,7 @@
 #include <qdialog.h>
 #include <QThread>
 #include "UsersEnum.h"
+#include "CFormThread.h"
 
 namespace Ui {
 	class NewForm;
@@ -20,10 +21,17 @@ public:
 
 	void slotSetUser(EUserType);
 	void slotCloseWindow();
+	void slotPushButtonPressed();
+	void slotWorkStarted();
+	void slotWorkEnded();
 
 private:
 	NewForm* ui;
-	QThread* _thread;
+	QThread* _thread;		// поток в котором работает данная форма
+	CFormThread* _myThread; // поток в котором происходят вычисления, управляемые из этой формы
+
+signals:
+	void signalStartWork();
 };
 
 #endif //FORMNEWFORM_H
